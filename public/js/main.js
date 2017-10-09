@@ -1,13 +1,17 @@
 /* global $ */
 "use strict";
-let script = require('./another-script.js');
 
 
-class SomeClass {
-	myMethod(){
-		script.message()
-	}
+function Main {  
+  let movies = require('./api.js');
+
+  print() {
+    movies.loadData();
+  }
 }
 
-var instance = new SomeClass()
-instance.myMethod()
+let f = new Main();
+f.print()
+
+
+
