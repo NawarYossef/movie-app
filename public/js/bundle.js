@@ -17101,33 +17101,42 @@ class DataApi {
     this.day = new Date().getDate();
   }
 
-  showComingSoon() {
+  init(){
+    this.showComingSoonImages()
+    this.showInTheatersImages() 
+    movies.triggerModal()
+    movies.triggerButtonOnLoad()
+    movies.comingSoonHeader()
+    movies.inTheatersHeader()
+  }
+
+  showComingSoonImages() {
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=c50018ef917eb4b365574473fa381a3c&primary_release_date.gte=${this.year}-${this.month}-${this.day}`;
     $.get(url, function(data){
       movies.newMoviesThumbnail(data);
     });
   } 
 
-  inTheatersMoivesShow() {
-    let url2 = 
-    $.get(this.url, function(data){
+  showInTheatersImages() {
+    let url2 = `https://api.themoviedb.org/3/movie/now_playing?api_key=c50018ef917eb4b365574473fa381a3c&language=en-US&page=1`
+    $.get(url2, function(data){
       movies.InTheatersThumbnails(data);
     });
   }
 
-  movieInfo() {
-    let url3 = `http://api.themoviedb.org/3/movie/550/videos?api_key=c50018ef917eb4b365574473fa381a3c`
-    $.get(url3, function(data){
-      // movies.movieInfo(data);
-      // https://www.youtube.com/watch?v=SUXWAEX2jlg
-    });
-  } 
+  // movieInfo() {
+  //   movies.triggerModal()
+  // } 
 
+  // triggerButton(){
+  //   movies.triggerButtonOnLoad()
+  // }
 }
 
-let init = new DataApi();
-init.showComingSoon()
-init.movieInfo()
+let app = new DataApi();
+app.init()
+
+
 
 
 
@@ -17137,30 +17146,85 @@ init.movieInfo()
 
 let _ = require("lodash");
 let range = _.range(15);
+
 let movies = {
 
   newMoviesThumbnail: function(data) {
     $(function() {
-      $("img").each(function(idx, ele){
-        $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+      $(".coming-soon").click(function() {
+        $("img").each(function(idx, ele){
+          $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+        })
       })
     })
   },
 
   InTheatersThumbnails: function(data) {
     $(function() {
-      $("img").each(function(idx, ele){
-        $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+      $(".in-theaters").click(function() {
+        $("img").each(function(idx, ele){
+          $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+        })
+      })
+    })  
+  },
+
+  comingSoonHeader: function() {
+    $(function() {
+      $(".coming-soon").click(function() {
+        $("h2").text("Coming Soon");
       })
     })
   },
 
-  movieInfo: function() {
-    $(function(){
-      $(".in-theaters").click(function(){
-        $("")
+  inTheatersHeader: function() {
+    $(function() {
+      $(".in-theaters").click(function() {
+        $("h2").text("In Theaters Now");
       })
     })
+  },
+
+
+  triggerButtonOnLoad() {
+    $(function(){
+      setTimeout(function() {
+        $(".coming-soon").trigger("click")
+      },40)
+    })
+  },
+
+  triggerModal : function() {
+    $(function(){
+      $("a").click(function(e){
+        let text = `<!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+          
+        </div>
+        </div>`
+        e.preventDefault();
+        $("main").append(text);
+        $("#myModal").modal();
+      });
+    });
+  },
+
+  movieDetails: function() {
+    // $("#myModal").html();
   }
 }
 module.exports = movies;

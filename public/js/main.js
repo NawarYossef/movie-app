@@ -12,32 +12,41 @@ class DataApi {
     this.day = new Date().getDate();
   }
 
-  showComingSoon() {
+  init(){
+    this.showComingSoonImages()
+    this.showInTheatersImages() 
+    movies.triggerModal()
+    movies.triggerButtonOnLoad()
+    movies.comingSoonHeader()
+    movies.inTheatersHeader()
+  }
+
+  showComingSoonImages() {
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=c50018ef917eb4b365574473fa381a3c&primary_release_date.gte=${this.year}-${this.month}-${this.day}`;
     $.get(url, function(data){
       movies.newMoviesThumbnail(data);
     });
   } 
 
-  inTheatersMoivesShow() {
-    let url2 = 
-    $.get(this.url, function(data){
+  showInTheatersImages() {
+    let url2 = `https://api.themoviedb.org/3/movie/now_playing?api_key=c50018ef917eb4b365574473fa381a3c&language=en-US&page=1`
+    $.get(url2, function(data){
       movies.InTheatersThumbnails(data);
     });
   }
 
-  movieInfo() {
-    let url3 = `http://api.themoviedb.org/3/movie/550/videos?api_key=c50018ef917eb4b365574473fa381a3c`
-    $.get(url3, function(data){
-      // movies.movieInfo(data);
-      // https://www.youtube.com/watch?v=SUXWAEX2jlg
-    });
-  } 
+  // movieInfo() {
+  //   movies.triggerModal()
+  // } 
 
+  // triggerButton(){
+  //   movies.triggerButtonOnLoad()
+  // }
 }
 
-let init = new DataApi();
-init.showComingSoon()
-init.movieInfo()
+let app = new DataApi();
+app.init()
+
+
 
 
