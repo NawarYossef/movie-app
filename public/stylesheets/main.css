@@ -2,5 +2,9 @@
 
 
 body {
-	background-color: brown;
+	background-color: rgb(171, 188, 197) !important;
+}
+
+.bottom-marg {
+	margin-bottom: 3%;
 }
