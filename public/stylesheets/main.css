@@ -10,10 +10,16 @@ body {
 }
 
 .jumbotron h1 {
-	color: #210935;
+	color: #880c77;
 	font-weight: bold 
 }
 
+.head-container {
+	width: 30%;
+	height: 20%;
+	background-color: rgb(172, 161, 161);
+	opacity: 0.7;
+}
 .btn  {
 	outline: none !important;
 	border-radius: 20px;

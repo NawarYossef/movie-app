@@ -10,7 +10,7 @@ let movies = {
     $(function() {
       $(".coming-soon").click(function() {
         $("img").each(function(idx, ele){
-          $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+          $(this).attr("src", `https://image.tmdb.org/t/p/original${data.results[idx]["poster_path"]}`)
         })
       })
     })
@@ -20,7 +20,7 @@ let movies = {
     $(function() {
       $(".in-theaters").click(function() {
         $("img").each(function(idx, ele){
-          $(this).attr("src", `https://image.tmdb.org/t/p/w500${data.results[idx]["poster_path"]}`)
+          $(this).attr("src", `https://image.tmdb.org/t/p/original${data.results[idx]["poster_path"]}`)
         })
       })
     })  
