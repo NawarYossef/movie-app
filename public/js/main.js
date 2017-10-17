@@ -2,7 +2,7 @@
 "use strict";
 
 let movies = require('./movies.js');
-let _ = require("lodash");
+let modal = require("./modal.js")
 
 
 class DataApi {
@@ -15,8 +15,7 @@ class DataApi {
   init(){
     this.showComingSoonImages()
     this.showInTheatersImages() 
-    movies.triggerModal()
-    movies.triggerButtonOnLoad()
+    movies.showComingSoonOnLoad()
     movies.comingSoonHeader()
     movies.inTheatersHeader()
   }
@@ -24,24 +23,19 @@ class DataApi {
   showComingSoonImages() {
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=c50018ef917eb4b365574473fa381a3c&primary_release_date.gte=${this.year}-${this.month}-${this.day}`;
     $.get(url, function(data){
-      movies.newMoviesThumbnail(data);
+      movies.comingSoonImages(data);
+      modal.show(data)
+      // modal.loadYoutubeApi()
     });
   } 
 
   showInTheatersImages() {
     let url2 = `https://api.themoviedb.org/3/movie/now_playing?api_key=c50018ef917eb4b365574473fa381a3c&language=en-US&page=1`
     $.get(url2, function(data){
-      movies.InTheatersThumbnails(data);
+      movies.InTheatersImages(data);
     });
   }
 
-  // movieInfo() {
-  //   movies.triggerModal()
-  // } 
-
-  // triggerButton(){
-  //   movies.triggerButtonOnLoad()
-  // }
 }
 
 let app = new DataApi();
